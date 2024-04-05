@@ -6,7 +6,7 @@
 * Angular will be installed in the folder `bookstore`, which is a subfolder to the working directory
 
 ## Launch dev environment
-* launching project with `docker compose up -d`
+* launching project with `docker compose up` 
 * access `http://localhost:4200` in the browser
 * for angular-cli login into container 
 * * `docker compose exec angular-app bash`
