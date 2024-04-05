@@ -7,7 +7,7 @@ RUN mkdir app
 WORKDIR /app
 
 ENV APP_NAME 'bookstore'
-ENV ROUTING 'false'
+ENV ROUTING 'true'
 ENV STANDALONE 'true'
 ENV STRICT 'true'
 ENV STYLE 'css'
