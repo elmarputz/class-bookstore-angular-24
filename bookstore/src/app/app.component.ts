@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { BookListComponent } from './book-list/book-list.component';
 
 
 @Component({
   selector: 'bs-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
+  imports: [RouterOutlet,BookListComponent],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'bookstore';
