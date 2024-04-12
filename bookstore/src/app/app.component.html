@@ -1,5 +1,9 @@
-@if(listOn) {
-<bs-book-list (showDetailsEvent)="showDetails($event)"></bs-book-list> 
-} @else if (detailsOn) {
-<bs-book-details [book]="book" (showListEvent)="showList()"></bs-book-details> 
-}
+<div class="ui two item tabs menu">
+    <a routerLink="home" routerLinkActive="active" class="item">Home</a>
+    <a routerLink="books" routerLinkActive="active" class="item">Bücher</a>
+</div>
+<div class="ui container">
+
+    <router-outlet></router-outlet>
+
+</div>

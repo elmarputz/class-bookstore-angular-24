@@ -3,7 +3,7 @@
     @for (book of books; track book) {
     <a class="item bs-book-list-item" 
       [book]="book"
-      (click)="showDetails(book)">
+      [routerLink]="book.isbn">
     
     </a>
     }
