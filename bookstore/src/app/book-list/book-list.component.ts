@@ -1,17 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Book, Author, Image } from "../shared/book";
+import { BookListItemComponent } from '../book-list-item/book-list-item.component';
 
 @Component({
   selector:'bs-book-list',
   standalone: true,
-  imports: [],
+  imports: [ BookListItemComponent],
   templateUrl: './book-list.component.html'
 })
 
 
 export class BookListComponent implements OnInit {
 
+
   books: Book[] = [];
+  @Output() showDetailsEvent = new EventEmitter<Book>();
+
+
+  showDetails(book: Book) {
+    this.showDetailsEvent.emit(book);
+  }
 
   ngOnInit(): void {
     
@@ -41,7 +49,7 @@ export class BookListComponent implements OnInit {
       )
     ];
    
-
+    console.log(this.books);
   }
 
 }

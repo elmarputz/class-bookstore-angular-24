@@ -1,0 +1,53 @@
+@if(book){
+    <div class="ui grid">
+      <div class="four wide column">
+        @if(book.images && book.images[0]){
+          <img class="ui large image" [src]="book.images[0].url">
+        }
+      </div>
+      <div class="twelve wide column">
+        <h1 class="ui header">{{ book.title }}</h1>
+        <h3 class="ui header">{{ book.subtitle }}</h3>
+        <div class="ui divider"></div>
+        <div class="ui grid">
+          <div class="four wide column">
+            <h4 class="ui header">Autoren</h4>
+            @for (author of book.authors; track author; let l =$last) {
+              <span>{{ author.firstName }} {{ author.lastName }}@if(!l){<span>, </span>}</span>
+            }
+          </div>
+          <div class="four wide column">
+            <h4 class="ui header">ISBN</h4>
+            {{ book.isbn }}
+          </div>
+          <div class="four wide column">
+            <h4 class="ui header">Erschienen</h4>
+            {{ book.published }}
+          </div>
+          <div class="four wide column">
+            <h4 class="ui header">Rating</h4>
+            @if(book.rating){
+              <div class="ui star rating">
+                @for (r of getRating(book.rating); track r) {
+                  <i class="yellow star icon"></i>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="sixteen wide column">
+        <h3 class="ui header">Beschreibung</h3>
+        {{ book.description }}
+      </div>
+      <div class="sixteen wide column">
+        <div class="ui small images">
+          @for (thumbnail of book.images; track thumbnail) {
+            <img [src]="thumbnail.url">
+          }
+        </div>
+      </div>
+    </div>
+   }
+
+   <button (click)="showBookList()" class="ui red button">Zurück zur Übersicht</button>

@@ -1,1 +1,5 @@
-<bs-book-list></bs-book-list> 
+@if(listOn) {
+<bs-book-list (showDetailsEvent)="showDetails($event)"></bs-book-list> 
+} @else if (detailsOn) {
+<bs-book-details [book]="book" (showListEvent)="showList()"></bs-book-details> 
+}

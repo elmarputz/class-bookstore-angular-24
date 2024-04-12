@@ -1,20 +1,10 @@
 
 <div class="ui middle aligned selection divided list">
     @for (book of books; track book) {
-    <a class="item">
-      @if(book.images && book.images[0]) {
-        <img class="ui tiny image" [src]="book.images[0].url"/>
-      }
-    <div class="content">
-      <div class="header">{{ book.title }}</div>
-        <div class="description"> {{ book.subtitle }} </div>
-        <div class="metadata">
-          @for (author of book.authors; track author; let l =$last) {
-            <span>{{ author.firstName }} {{ author.lastName }}@if(!l){<span>, </span>}</span>
-          }
-        </div>
-        <div class="extra">ISBN {{ book.isbn }}</div>
-      </div>
+    <a class="item bs-book-list-item" 
+      [book]="book"
+      (click)="showDetails(book)">
+    
     </a>
     }
    </div>
