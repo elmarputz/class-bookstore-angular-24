@@ -1,0 +1,11 @@
+<h1>Buchformular</h1>
+<form class="ui large form" [formGroup]="bookForm">
+  <div class="field">
+    <label for="title">Titel</label>
+    <input type="text" id="title" formControlName="title">
+  </div>
+  <div class="field">
+    <label for="subtitle">Untertitel</label>
+    <input type="text" id="subtitle" formControlName="subtitle">
+  </div>
+</form>

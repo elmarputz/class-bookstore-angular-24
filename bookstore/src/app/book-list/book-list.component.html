@@ -1,10 +1,5 @@
-
 <div class="ui middle aligned selection divided list">
-    @for (book of books; track book) {
-    <a class="item bs-book-list-item" 
-      [book]="book"
-      [routerLink]="book.isbn">
-    
-    </a>
-    }
-   </div>
+  @for (book of books; track book.title){
+    <a class="item bs-book-list-item" [book]="book" [routerLink]="book.isbn"></a>
+  }
+</div>
