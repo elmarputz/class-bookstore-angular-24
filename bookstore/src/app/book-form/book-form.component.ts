@@ -5,6 +5,7 @@ import {BookStoreService} from "../shared/book-store.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { BookFormErrorMessages } from './book-form-error-message';
 import { Book } from '../shared/book';
+import { BookValidators } from '../shared/book-validators';
 
 @Component({
   selector: 'bs-book-form',
@@ -55,7 +56,8 @@ export class BookFormComponent implements OnInit{
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(13)
-        ]
+        ],
+        this.isUpdatingBook ? null : BookValidators.isbnExists(this.bs)
       ],
       description: this.book.description, 
       rating: [
