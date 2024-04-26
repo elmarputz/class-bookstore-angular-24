@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Val
 import {BookFactory} from "../shared/book-factory";
 import {BookStoreService} from "../shared/book-store.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import { BookFormErrorMessages } from './book-form-error-message';
 
 @Component({
   selector: 'bs-book-form',
@@ -45,7 +46,8 @@ export class BookFormComponent implements OnInit{
   initBook() {
     this.buildThumbnailsArray();
     this.bookForm = this.fb.group({
-      title: this.book.title,
+      id: this.book.id,
+      title: [ this.book.title, Validators.required], 
       subtitle: this.book.subtitle,
       isbn: [
         this.book.isbn, [
@@ -66,6 +68,11 @@ export class BookFormComponent implements OnInit{
       images: this.images,
       published: [ this.book.published, Validators.required ]
     });
+
+    this.bookForm.statusChanges.subscribe(() => 
+      this.updateErrorMessage()
+    );
+    
   }
 
 
@@ -88,6 +95,27 @@ export class BookFormComponent implements OnInit{
 
   addThumbnailControl() {
     this.images.push(this.fb.group({ id: 0, url: null, title: null }));
+  }
+
+  updateErrorMessage() {
+    console.log("Is invalid? " + this.bookForm.invalid);
+    this.errors = {};
+    for (const message of BookFormErrorMessages) {
+      const control = this.bookForm.get(message.forControl);
+      if (
+        control && 
+        control.dirty && 
+        control.invalid && control.errors && 
+        control.errors[message.forValidator] && 
+        !this.errors[message.forControl]
+      ) {
+        console.log(control.errors);
+        this.errors[message.forControl] = message.text;
+      }
+
+    }
+
+
   }
 
 }

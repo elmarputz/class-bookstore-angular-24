@@ -3,6 +3,9 @@
   <div class="field">
     <label for="title">Titel</label>
     <input type="text" id="title" formControlName="title">
+    @if(errors['title']) {
+        <div class="ui negative message">{{ errors['title']}}</div>
+    }
   </div>
   <div class="field">
     <label for="subtitle">Untertitel</label>
