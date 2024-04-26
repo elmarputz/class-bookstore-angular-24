@@ -20,7 +20,7 @@ export class BookFactory {
             rawBook.user_id, 
             rawBook.subtitle,
             rawBook.rating,
-            rawBook.image,
+            rawBook.images,
             rawBook.description
         );
     }

@@ -89,8 +89,11 @@ export class BookFormComponent implements OnInit{
         });
         this.images.push(fg);
       }
-
+      if (this.book.images.length == 0)
+        this.addThumbnailControl();
     }
+    
+   
 
   }
 
