@@ -143,6 +143,12 @@ export class BookFormComponent implements OnInit{
     } else {
       book.user_id = 1;
       console.log(book);
+      this.bs.create(book).subscribe(res => {
+        this.book = BookFactory.empty();
+        this.bookForm.reset(BookFactory.empty());
+        this.router.navigate(["../books"], { relativeTo: this.route });
+
+      })
     }
 
   }
