@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {BookFactory} from "../shared/book-factory";
 import {BookStoreService} from "../shared/book-store.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -17,6 +17,8 @@ export class BookFormComponent implements OnInit{
   bookForm : FormGroup;
   book = BookFactory.empty();
   isUpdatingBook = false;
+  errors: { [key: string]: string } = {};
+  images: FormArray;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +27,7 @@ export class BookFormComponent implements OnInit{
     private router: Router
   ) {
     this.bookForm = this.fb.group({});
+    this.images = this.fb.array([]);
   }
 
   ngOnInit() {
@@ -40,9 +43,51 @@ export class BookFormComponent implements OnInit{
   }
 
   initBook() {
+    this.buildThumbnailsArray();
     this.bookForm = this.fb.group({
       title: this.book.title,
-      subtitle: this.book.subtitle
+      subtitle: this.book.subtitle,
+      isbn: [
+        this.book.isbn, [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]
+      ],
+      description: this.book.description, 
+      rating: [
+        this.book.rating, [
+          Validators.min(0), 
+          Validators.max(10)
+
+        ]
+      ], 
+
+      images: this.images,
+      published: [ this.book.published, Validators.required ]
     });
   }
+
+
+  buildThumbnailsArray() {
+    if (this.book.images) {
+      this.images = this.fb.array([]);
+
+      for (let img of this.book.images) {
+        let fg = this.fb.group({
+          id: new FormControl(img.id),
+          url: new FormControl(img.url, [Validators.required]), 
+          title: new FormControl(img.title, [Validators.required])
+        });
+        this.images.push(fg);
+      }
+
+    }
+
+  }
+
+  addThumbnailControl() {
+    this.images.push(this.fb.group({ id: 0, url: null, title: null }));
+  }
+
 }

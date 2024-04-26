@@ -8,4 +8,64 @@
     <label for="subtitle">Untertitel</label>
     <input type="text" id="subtitle" formControlName="subtitle">
   </div>
+  <div class="field" [class.disabled]="isUpdatingBook">
+    <label for="isbn">ISBN</label>
+    <input formControlName="isbn">
+
+    @if(errors['isbn']) {
+        <div class="ui negative message">{{ errors['isbn']}}</div>
+    }
+  </div>
+
+  <div class="field">
+    <label>Erscheinungsdatum</label>
+    <input type="date" formControlName="published">
+    @if(errors['published']){
+      <div class="ui negative message">{{ errors['published'] }} </div>
+    }
+  </div>
+  <div class="field">
+    <label>Beschreibung</label>
+    <textarea formControlName="description" rows="3"></textarea>
+  </div>
+  <div class="field">
+    <label>Rating</label>
+    <input type="number" formControlName="rating">
+    @if(errors['rating']){
+      <div class="ui negative message">{{ errors['rating'] }} </div>
+    }
+  </div>
+ 
+  <div class="field">
+    <label>Bilder</label>
+    <div formArrayName="images">
+      @for(control of images.controls; let i =$index, l=$last; track control){
+        <div class="fields" [formGroupName]="i">
+          <input type="hidden" formControlName="id">
+          <div class="nine wide field">
+            <input formControlName="url" placeholder="http://bild{{i+1}}_url">
+          </div>
+          <div class="six wide field">
+            <input formControlName="title" placeholder="Bild{{i+1}}_Titel">
+          </div>
+          @if(l){
+            <div class="one wide field">
+              <button (click)="addThumbnailControl()" class="ui large button" type="button">+</button>
+            </div>
+          }
+ 
+ 
+        </div>
+      }
+    </div>
+    @if (errors['images']){
+      <div class="ui negative message">{{ errors['images'] }}</div>
+    }
+  </div>
+ 
+ 
+  <button type="submit" class="ui button" [disabled]="bookForm.invalid">Speichern</button>
+
+
+
 </form>
