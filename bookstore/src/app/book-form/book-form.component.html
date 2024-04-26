@@ -1,5 +1,5 @@
 <h1>Buchformular</h1>
-<form class="ui large form" [formGroup]="bookForm">
+<form class="ui large form" [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="field">
     <label for="title">Titel</label>
     <input type="text" id="title" formControlName="title">

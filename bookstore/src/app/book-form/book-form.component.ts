@@ -4,6 +4,7 @@ import {BookFactory} from "../shared/book-factory";
 import {BookStoreService} from "../shared/book-store.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { BookFormErrorMessages } from './book-form-error-message';
+import { Book } from '../shared/book';
 
 @Component({
   selector: 'bs-book-form',
@@ -115,6 +116,31 @@ export class BookFormComponent implements OnInit{
 
     }
 
+
+  }
+
+  submitForm() {
+    console.log(this.bookForm.value);
+
+    this.bookForm.value.images = this.bookForm.value.images.filter(
+      (thumbnail: { url:string; }) => thumbnail.url
+    );
+
+    const book: Book = BookFactory.fromObject(this.bookForm.value);
+    book.authors = this.book.authors;
+
+    if (this.isUpdatingBook) {
+      this.bs.update(book).subscribe(res => {
+        this.router.navigate(["../../books/", book.isbn], {
+          relativeTo: this.route
+        });
+      });
+
+
+    } else {
+      book.user_id = 1;
+      console.log(book);
+    }
 
   }
 
